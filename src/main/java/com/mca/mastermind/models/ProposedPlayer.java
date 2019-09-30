@@ -1,50 +1,49 @@
 package com.mca.mastermind.models;
 
 public class ProposedPlayer {
+  private ProposedCombination proposedCombination;
+  private int attemps;
+  private int maxAttemps;
 
-    private ProposedCombination proposedCombination;
+  public ProposedPlayer(int maxAttemps) {
+    this.maxAttemps = maxAttemps;
+    this.attemps = 0;
+    this.proposedCombination = new ProposedCombination();
+  }
 
-    private int attemps;
+  public void propose() {
+    proposedCombination.read();
+  }
 
-    public ProposedPlayer(int attemps) {
-        this.attemps = attemps;
-        this.proposedCombination = new ProposedCombination();
-    }
+  ProposedPlayer getLastProposedPlayer() {
+    return this;
+  }
 
-    public void propose() {
-        proposedCombination.read();
-    }
+  public void writeAttemps() {
+    System.out.println(attemps + " attempt(s)");
+  }
 
-    ProposedPlayer getLastProposedPlayer() {
-        return this;
-    }
+  public boolean isWinner() {
+    return false;
+  }
 
-    public void writeAttemps() {
-        System.out.println(attemps + " attempt(s)");
-    }
+  public boolean isLooser() {
+    return attemps == maxAttemps;
+  }
 
-    public boolean isWinner() {
-        return false;
-    }
+  public ProposedCombination getProposedCombination() {
+    return proposedCombination;
+  }
 
-    public boolean isLooser() {
-        return !isWinner();
-    }
+  public void setProposedCombination(ProposedCombination proposedCombination) {
+    this.proposedCombination = proposedCombination;
+  }
 
-    public ProposedCombination getProposedCombination() {
-        return proposedCombination;
-    }
+  public int getAttemps() {
+    return attemps;
+  }
 
-    public void setProposedCombination(
-            ProposedCombination proposedCombination) {
-        this.proposedCombination = proposedCombination;
-    }
-
-    public int getAttemps() {
-        return attemps;
-    }
-
-    public void setAttemps(int attemps) {
-        this.attemps = attemps;
-    }
+  public void setAttemps(int attemps) {
+    this.attemps = attemps;
+  }
 }
