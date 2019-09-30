@@ -1,38 +1,26 @@
 package com.mca.mastermind.models;
 
 public class Result {
+  int die, damaged;
 
-    private int deads;
+  Result() {
+    die = 0;
+    damaged = 0;
+  }
 
-    private int damaged;
+  public void setDie(int die) {
+    this.die = die;
+  }
 
-    public Result() {
-        this.deads = 0;
-        this.damaged = 0;
-    }
+  public int getDie() {
+    return this.die;
+  }
 
-    public void write(String combination) {
-        System.out.println(combination + " --> " + deads + "deads " + damaged
-                + " damaged.");
-    }
+  public void setDamaged(int damaged) {
+    this.damaged = damaged;
+  }
 
-    public boolean isWinner() {
-        return deads >= 4;
-    }
-
-    public int getDeads() {
-        return deads;
-    }
-
-    public int getDamaged() {
-        return damaged;
-    }
-
-    public void setDeads(int deads) {
-        this.deads = deads;
-    }
-
-    public void setDamaged(int damaged) {
-        this.damaged = damaged;
-    }
+  public int getDamaged() {
+    return this.damaged;
+  }
 }

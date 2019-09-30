@@ -7,11 +7,32 @@ import com.mca.mastermind.models.Result;
 import com.mca.mastermind.models.SecretPlayer;
 
 public class Mastermind {
-  private final int MAX_ATTEMPS = 10;
-  private SecretPlayer secretPlayer;
-  private ProposedPlayer proposedPlayer;
+  SecretPlayer secretPlayer = new SecretPlayer();
+  ProposedPlayer proposedPlayer = new ProposedPlayer();
 
-  public static void main(String[] args) {
+  void play() {
+    Result result = null;
+    System.out.println("----- MASTERMIND -----");
+    proposerPlayer.setEndGame(false);
+    proposerPlayer.setAttempts(0);
+    proposerPlayer.setProposedCombinations("");
+    secretPlayer.setProposerPlayer(proposerPlayer);
+    secretPlayer.prepare();
+    do {
+      result = secretPlayer.answer(proposerPlayer.propose());
+      proposerPlayer.writeAttempts();
+      secretPlayer.writeEncode();
+      secretPlayer.write(proposerPlayer.getLastPropose(), result);
+    } while (result.getDie() != 4 && !proposerPlayer.getEndGame());
+    if (result.getDie() == 4) {
+      proposerPlayer.isWinner();
+    }
+    if (proposerPlayer.getEndGame()) {
+      proposerPlayer.isLooser();
+    }
+  }
+
+  public static void main(String[] args) throws java.io.IOException {
     Mastermind mastermind = new Mastermind();
     Scanner input = new Scanner(System.in);
     String option = "";
@@ -22,21 +43,5 @@ public class Mastermind {
     } while (!option.toLowerCase()
                     .equals("n"));
     input.close();
-  }
-
-  /**
-   * Method not finished
-   */
-  void play() {
-    Result result = null;
-    System.out.println("----- MASTERMIND -----\n****");
-    proposedPlayer = new ProposedPlayer(MAX_ATTEMPS);
-    secretPlayer = new SecretPlayer(proposedPlayer);
-    secretPlayer.prepare();
-    do {
-      result = new Result();
-      proposedPlayer.propose();
-      proposedPlayer.writeAttemps();
-    } while (true);
   }
 }

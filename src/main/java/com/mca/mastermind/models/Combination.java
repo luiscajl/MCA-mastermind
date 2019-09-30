@@ -1,22 +1,17 @@
 package com.mca.mastermind.models;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class Combination {
+  public enum Color {
+    r, b, y, g, o, p
+  }
 
-    final int NUM_MAX_CHARACTER = 4;
+  public Color[] colors = Color.values();
 
-    private List<Color> colorCombination;
-
-    Combination() {
-        getRandomCombination();
+  public String colorsToString() {
+    String enumString = "";
+    for (Color c : Color.values()) {
+      enumString += c.toString();
     }
-
-    public List<Color> getRandomCombination() {
-        colorCombination = new ArrayList<Color>(NUM_MAX_CHARACTER);
-        colorCombination = Arrays.asList(Color.values());
-        return colorCombination;
-    }
+    return enumString;
+  }
 }
