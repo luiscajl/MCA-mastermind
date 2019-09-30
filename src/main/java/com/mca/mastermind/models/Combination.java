@@ -1,17 +1,41 @@
 package com.mca.mastermind.models;
 
+/**
+ * Class for combination of colors enum
+ * 
+ * @author luisca
+ *
+ */
 public class Combination {
-  public enum Color {
-    r, b, y, g, o, p
-  }
 
-  public Color[] colors = Color.values();
+    private Color[] colors;
 
-  public String colorsToString() {
-    String enumString = "";
-    for (Color c : Color.values()) {
-      enumString += c.toString();
+    /**
+     * Constructor
+     */
+    public Combination() {
+        colors = Color.values();
     }
-    return enumString;
-  }
+
+    /**
+     * Method to convert color enum to string
+     * 
+     * @return string with the colors
+     */
+    public String colorsToString() {
+        String enumString = "";
+        for (Color c : Color.values()) {
+            enumString += c.toString();
+        }
+        return enumString;
+    }
+
+    /**
+     * Method to return the colors attribute
+     * 
+     * @return colors enum attribute
+     */
+    public Color[] getColors() {
+        return colors;
+    }
 }

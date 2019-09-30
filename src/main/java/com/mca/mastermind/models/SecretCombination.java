@@ -1,97 +1,161 @@
 package com.mca.mastermind.models;
 
+import com.mca.mastermind.utils.MastermindConstants;
+
+/**
+ * Class of the secret combination of mastermind. Son of Combination
+ * 
+ * @author luisca
+ *
+ */
 public class SecretCombination extends Combination {
-  char[] sc;
-  boolean incorrect, repeated, invalidLength;
 
-  char[] genSecretCombination() {
-    int limit = 5, i = 0, j = 0;
-    int numVector[] = new int[4];
-    char[] secretCombination = new char[4];
-    numVector[i] = (int) (Math.random() * limit);
-    for (i = 1; i < numVector.length; i++) {
-      numVector[i] = (int) (Math.random() * limit);
-      for (j = 0; j < i; j++) {
-        if (numVector[i] == numVector[j]) {
-          i--;
-        }
-      }
-    }
-    for (int k = 0; k < numVector.length; k++) {
-      secretCombination[k] = super.colorsToString().charAt(numVector[k]);
-    }
-    return secretCombination;
-  }
+    private char[] secretCombination;
 
-  void warningMSG(boolean incorrect, boolean repeated, boolean invalidLength) {
-    if (incorrect) {
-      System.out.println(" Wrong colors, they must be: rbygop");
+    /**
+     * Constructor that create a new secret combination
+     */
+    public SecretCombination() {
+        this.secretCombination = generateSecretCombination();
     }
-    if (repeated) {
-      System.out.println(" Repeated colors");
-    }
-    if (invalidLength) {
-      System.out.println(" Wrong proposed combination length");
-    }
-  }
 
-  boolean isValid(char[] proposedCombination) {
-    this.incorrect = false;
-    this.repeated = false;
-    this.invalidLength = false;
-    String character = "", combinationString = "";
-    int iteration;
-    for (char pc : proposedCombination) {
-      if (!super.colorsToString().contains(Character.toString(pc))) {
-        incorrect = true;
-      }
-      iteration = 0;
-      combinationString = new String(proposedCombination);
-      character = Character.toString(pc);
-      while (combinationString.indexOf(character) != -1) {
-        combinationString = combinationString.substring(combinationString.indexOf(character) + 1, combinationString.length());
-        iteration++;
-      }
-      if (iteration > 1) {
-        repeated = true;
-      }
-      if (super.colors.length < proposedCombination.length || proposedCombination.length != 4) {
-        invalidLength = true;
-      }
-    }
-    return (!incorrect && !repeated && !invalidLength);
-  }
-
-  Result calculateResult(char[] proposedCombination, char[] secretCombination, ProposerPlayer proposerPlayer) {
-    Result result = new Result();
-    if (isValid(proposedCombination)) {
-      for (int i = 0; i < proposedCombination.length; i++) {
-        if (proposedCombination[i] == secretCombination[i]) {
-          result.setDie(result.getDie() + 1);
-        } else {
-          for (int j = 0; j < proposedCombination.length; j++) {
-            if (secretCombination[i] == proposedCombination[j]) {
-              result.setDamaged(result.getDamaged() + 1);
+    /**
+     * Method to generate a new secret combination
+     * 
+     * @return char array with the combination secret
+     */
+    private char[] generateSecretCombination() {
+        int limit = 5, i = 0, j = 0;
+        int numVector[] = new int[4];
+        char[] secretCombination = new char[4];
+        numVector[i] = (int) (Math.random() * limit);
+        for (i = 1; i < numVector.length; i++) {
+            numVector[i] = (int) (Math.random() * limit);
+            for (j = 0; j < i; j++) {
+                if (numVector[i] == numVector[j]) {
+                    i--;
+                }
             }
-          }
         }
-      }
-      proposerPlayer.setAttempts(proposerPlayer.getAttempts() + 1);
-    } else {
-      warningMSG(this.incorrect, this.repeated, this.invalidLength);
+        for (int k = 0; k < numVector.length; k++) {
+            secretCombination[k] = super.colorsToString().charAt(numVector[k]);
+        }
+        return secretCombination;
     }
-    return result;
-  }
 
-  String write(char[] proposedCombination, Result result) {
-    return new String(proposedCombination) + " --> " + result.getDie() + " blacks and " + result.getDamaged() + " whites";
-  }
+    /**
+     * Method to validate the proposed combination
+     * 
+     * @param proposedCombination
+     *            char array with the proposed combination
+     * @return true if is valid, eoc false
+     */
+    public boolean isValid(char[] proposedCombination) {
+        String character = "";
+        String combinationString = "";
+        int iteration;
+        for (char pc : proposedCombination) {
+            if (!super.colorsToString().contains(Character.toString(pc))) {
+                System.out.println(MastermindConstants.WRONG_COLORS);
+                return false;
+            }
+            iteration = 0;
+            combinationString = new String(proposedCombination);
+            character = Character.toString(pc);
+            while (combinationString.indexOf(character) != -1) {
+                combinationString = combinationString.substring(
+                        combinationString.indexOf(character) + 1,
+                        combinationString.length());
+                iteration++;
+            }
+            if (iteration > 1) {
+                System.out.println(MastermindConstants.REPEATED_COLORS);
+                return false;
+            }
+            if (super.getColors().length < proposedCombination.length
+                    || proposedCombination.length != 4) {
+                System.out.println(MastermindConstants.WRONG_LENGTH);
+                return false;
+            }
+        }
+        return true;
+    }
 
-  void setSecretCombination(char[] sc) {
-    this.sc = sc;
-  }
+    /**
+     * Method to check if is valid for write on screen
+     * 
+     * @param proposedCombination
+     *            char array with the proposed combination
+     * @return true if is valid, eoc false
+     */
+    public boolean isValidForWrite(char[] proposedCombination) {
+        String character = "";
+        String combinationString = "";
+        int iteration;
+        for (char pc : proposedCombination) {
+            if (!super.colorsToString().contains(Character.toString(pc))) {
+                return false;
+            }
+            iteration = 0;
+            combinationString = new String(proposedCombination);
+            character = Character.toString(pc);
+            while (combinationString.indexOf(character) != -1) {
+                combinationString = combinationString.substring(
+                        combinationString.indexOf(character) + 1,
+                        combinationString.length());
+                iteration++;
+            }
+            if (iteration > 1) {
+                return false;
+            }
+            if (super.getColors().length < proposedCombination.length
+                    || proposedCombination.length != 4) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-  public char[] getSecretCombination() {
-    return this.sc;
-  }
+    /**
+     * Method to calculate the result of the proposed combination
+     * 
+     * @param proposedCombination
+     *            char array with the proposedCombination
+     * @param proposedPlayer
+     *            with the attemps
+     * @return the result with the deaths and damaged
+     */
+    public Result calculateResult(char[] proposedCombination,
+            ProposedPlayer proposedPlayer) {
+        Result result = new Result();
+        if (isValid(proposedCombination)) {
+            for (int i = 0; i < proposedCombination.length; i++) {
+                if (proposedCombination[i] == secretCombination[i]) {
+                    result.setDeaths(result.getDeaths() + 1);
+                } else {
+                    for (char element : proposedCombination) {
+                        if (secretCombination[i] == element) {
+                            result.setDamaged(result.getDamaged() + 1);
+                        }
+                    }
+                }
+            }
+            proposedPlayer.setAttempts(proposedPlayer.getAttempts() + 1);
+        }
+        return result;
+    }
+
+    /**
+     * Method to return the proposed combination and the deaths and damaged
+     * 
+     * @param proposedCombination
+     *            char array with the combination
+     * @param result
+     *            with the deaths and damaged
+     * @return string to write on command line
+     */
+    public String write(char[] proposedCombination, Result result) {
+        return new String(proposedCombination) + " --> " + result.getDeaths()
+                + " blacks and " + result.getDamaged() + " whites";
+    }
 }

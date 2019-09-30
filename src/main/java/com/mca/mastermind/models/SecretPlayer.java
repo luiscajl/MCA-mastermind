@@ -1,31 +1,64 @@
 package com.mca.mastermind.models;
 
+/**
+ * Class of the secret player with the secret combination
+ * 
+ * @author luisca
+ *
+ */
 public class SecretPlayer {
-  SecretCombination secretCombination = new SecretCombination();
-  ProposedPlayer proposedPlayer;
 
-  public void prepare() {
-    this.secretCombination.setSecretCombination(secretCombination.genSecretCombination());
-  }
+    private SecretCombination secretCombination;
 
-  public Result answer(char[] proposedCombination) {
-    return secretCombination.calculateResult(proposedCombination, this.secretCombination.getSecretCombination(), proposedPlayer);
-  }
+    private ProposedPlayer proposedPlayer;
 
-  public void write(char[] proposedCombination, Result result) {
-    if (secretCombination.isValid(proposedCombination)) {
-      proposedPlayer.writeProposedCombinations(secretCombination.write(proposedCombination, result));
+    /**
+     * Constructor
+     */
+    public SecretPlayer() {
     }
-  }
 
-  public void setProposerPlayer(ProposedPlayer proposerPlayer) {
-    proposerPlayer = proposerPlayer;
-  }
-
-  public void writeEncode() {
-    for (int i = 0; i < 4; i++) {
-      System.out.println("*");
+    /**
+     * Method to prepare the game
+     */
+    public void prepare() {
+        secretCombination = new SecretCombination();
     }
-    System.out.print('\n');
-  }
+
+    /**
+     * Method to answer with the result of the propose combination
+     * 
+     * @param proposedCombination
+     *            to calculate if is valid and correct
+     * @return result with the deaths and damaged
+     */
+    public Result answer(char[] proposedCombination) {
+        return secretCombination.calculateResult(proposedCombination,
+                proposedPlayer);
+    }
+
+    /**
+     * Method to write if is valid for write on command line
+     * 
+     * @param proposedCombination
+     *            the proposed combination
+     * @param result
+     *            with the deats and damaged
+     */
+    public void write(char[] proposedCombination, Result result) {
+        if (secretCombination.isValidForWrite(proposedCombination)) {
+            proposedPlayer.writeProposedCombinations(
+                    secretCombination.write(proposedCombination, result));
+        }
+    }
+
+    /**
+     * Method to set the proposed player
+     * 
+     * @param proposedPlayer
+     *            the proposed player
+     */
+    public void setProposedPlayer(ProposedPlayer proposedPlayer) {
+        this.proposedPlayer = proposedPlayer;
+    }
 }
