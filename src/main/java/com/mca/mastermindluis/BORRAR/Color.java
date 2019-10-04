@@ -1,6 +1,6 @@
-package com.mca.mastermindluis.mastermind;
+package com.mca.mastermindluis.BORRAR;
 
-import com.mca.mastermindluis.santaTecla.utils.Console;
+import com.mca.mastermindluis.BORRAR.utils.Console;
 
 enum Color {
     RED('r'), BLUE('b'), YELLOW('y'), GREEN('g'), ORANGE('o'), PURPLE('p');

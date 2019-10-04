@@ -1,4 +1,4 @@
-package com.mca.mastermindluis.mastermind;
+package com.mca.mastermindluis.BORRAR;
 
 class ProposedCombination extends Combination {
 

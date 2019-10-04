@@ -1,9 +1,9 @@
-package com.mca.mastermindluis.mastermind;
+package com.mca.mastermindluis.BORRAR;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.mca.mastermindluis.santaTecla.utils.WithConsoleModel;
-import com.mca.mastermindluis.santaTecla.utils.YesNoDialog;
+import com.mca.mastermindluis.BORRAR.utils.WithConsoleModel;
+import com.mca.mastermindluis.BORRAR.utils.YesNoDialog;
 
 public class Mastermind extends WithConsoleModel {
 

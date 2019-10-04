@@ -1,6 +1,6 @@
-package com.mca.mastermindluis.mastermind;
+package com.mca.mastermindluis.BORRAR;
 
-import com.mca.mastermindluis.santaTecla.utils.WithConsoleModel;
+import com.mca.mastermindluis.BORRAR.utils.WithConsoleModel;
 
 class Result extends WithConsoleModel {
 

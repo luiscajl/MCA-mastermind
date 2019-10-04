@@ -1,4 +1,4 @@
-package com.mca.mastermindluis.santaTecla.utils;
+package com.mca.mastermindluis.BORRAR.utils;
 
 public class YesNoDialog extends WithConsoleModel {
 

@@ -1,4 +1,4 @@
-package com.mca.mastermindluis.mastermind;
+package com.mca.mastermindluis.BORRAR;
 
 import java.util.Collections;
 import java.util.Random;
