@@ -1,7 +1,6 @@
 package com.mca.mastermind.models;
 
-import java.util.Scanner;
-import com.mca.mastermind.utils.MastermindConstants;
+import java.util.List;
 
 /**
  * Class for proposed player combination
@@ -11,26 +10,15 @@ import com.mca.mastermind.utils.MastermindConstants;
  */
 public class ProposedCombination extends Combination {
 
-    private Scanner scanner;
-
-    private char[] proposedCombination;
-
     /**
      * Constructor
      */
     public ProposedCombination() {
         super();
-        scanner = new Scanner(System.in);
     }
 
-    /**
-     * Method to read the command line
-     * 
-     * @return char array with the content of scanner command line
-     */
-    public char[] read() {
-        System.out.print(MastermindConstants.PROPOSE_COMBINATION);
-        return scanner.nextLine().toCharArray();
+    public ProposedCombination(List<Color> listColors) {
+        this.colors = listColors;
     }
 
     /**
@@ -39,16 +27,29 @@ public class ProposedCombination extends Combination {
      * @param proposedCombination
      *            the setter
      */
-    public void setProposedCombination(char[] proposedCombination) {
-        this.proposedCombination = proposedCombination;
+    public void setProposedCombination(List<Color> proposedCombination) {
+        this.colors = proposedCombination;
     }
 
     /**
      * Method to get the proposed combination
      * 
-     * @return char array with the private proposed combination atribute
+     * @return List with the private proposed combination atribute
      */
-    public char[] getProposedCombination() {
-        return proposedCombination;
+    public List<Color> getProposedCombination() {
+        return colors;
+    }
+
+    boolean contains(Color color, int position) {
+        return colors.get(position) == color;
+    }
+
+    boolean contains(Color color) {
+        for (Color element : colors) {
+            if (element == color) {
+                return true;
+            }
+        }
+        return false;
     }
 }

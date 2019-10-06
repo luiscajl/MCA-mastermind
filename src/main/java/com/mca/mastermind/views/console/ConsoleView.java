@@ -1,37 +1,28 @@
 package com.mca.mastermind.views.console;
 
-import com.mca.mastermind.controllers.Controller;
 import com.mca.mastermind.controllers.ProposeCombinationController;
 import com.mca.mastermind.controllers.ResumeController;
 import com.mca.mastermind.controllers.StartController;
+import com.mca.mastermind.views.ProposeCombinationView;
+import com.mca.mastermind.views.ResumeView;
+import com.mca.mastermind.views.StartView;
 import com.mca.mastermind.views.View;
-import klondike.utils.YesNoDialog;
-import klondike.views.console.GameView;
-import klondike.views.console.Message;
-import klondike.views.console.menu.PlayMenu;
 
-public class ConsoleView implements View {
-
-    @Override
-    public void interact(Controller controller) {
-        controller.accept(this);
-    }
+public class ConsoleView extends View {
 
     @Override
     public void visit(StartController startController) {
-        startController.start();
-        new GameView(startController).writeln();
+        new StartView().interact(startController);
     }
 
     @Override
     public void visit(
             ProposeCombinationController proposeCombinationController) {
-        new PlayMenu(proposeCombinationController).execute();
-        new GameView(proposeCombinationController).writeln();
+        new ProposeCombinationView().interact(proposeCombinationController);
     }
 
     @Override
     public void visit(ResumeController resumeController) {
-        resumeController.resume(new YesNoDialog().read(Message.RESUME));
+        new ResumeView().interact(resumeController);
     }
 }

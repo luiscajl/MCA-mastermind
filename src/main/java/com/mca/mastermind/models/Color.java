@@ -8,37 +8,41 @@ package com.mca.mastermind.models;
  */
 public enum Color {
 
-    RED('r'), BLUE('b'), YELLOW('y'), GREEN('g'), ORANGE('o'), PURPLE('p');
+    RED("r"),
+    BLUE("b"),
+    YELLOW("y"),
+    GREEN("g"),
+    ORANGE("o"),
+    PURPLE("p");
 
-    private char initial;
+    private String color;
 
-    private Color(char initial) {
-        this.initial = initial;
+    private Color(String color) {
+        this.color = color;
     }
 
-    static String allInitials() {
-        String result = "";
-        for (Color color : Color.values()) {
-            result += color.initial;
-        }
-        return result;
+    public String getColor() {
+        return color;
     }
 
-    static Color getInstance(int code) {
-        assert 0 <= code && code < Color.length();
-        return Color.values()[code];
-    }
-
-    static Color getInstance(char character) {
-        for (Color color : Color.values()) {
-            if (color.initial == character) {
-                return color;
+    public static Color getColor(String color) {
+        for (Color colorEnum : Color.values()) {
+            if (color.equals(colorEnum.getColor())) {
+                return colorEnum;
             }
         }
         return null;
     }
 
-    static int length() {
+    public static int length() {
         return Color.values().length;
+    }
+
+    public static String allInitials() {
+        String result = "";
+        for (Color colors : values()) {
+            result += colors.getColor();
+        }
+        return result;
     }
 }

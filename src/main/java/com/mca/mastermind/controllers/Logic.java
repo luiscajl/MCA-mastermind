@@ -15,16 +15,18 @@ public class Logic {
     private Map<StateValue, Controller> controllers;
 
     public Logic() {
-        this.state = new State();
-        this.game = new Game();
-        this.controllers = new HashMap<>();
-        this.controllers.put(StateValue.INITIAL,
-                new StartController(this.game, this.state));
-        this.controllers.put(StateValue.IN_GAME,
-                new ProposeCombinationController(this.game, this.state));
-        this.controllers.put(StateValue.FINAL,
-                new ResumeController(this.game, this.state));
-        this.controllers.put(StateValue.EXIT, null);
+        state = new State();
+        game = new Game();
+        fillMap();
+    }
+
+    private void fillMap() {
+        controllers = new HashMap<>();
+        controllers.put(StateValue.INITIAL, new StartController(game, state));
+        controllers.put(StateValue.IN_GAME,
+                new ProposeCombinationController(game, state));
+        controllers.put(StateValue.FINAL, new ResumeController(game, state));
+        controllers.put(StateValue.EXIT, null);
     }
 
     public Controller getController() {
