@@ -1,5 +1,8 @@
 package com.mca.mastermind.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Class for combination of colors enum
  * 
@@ -8,13 +11,22 @@ package com.mca.mastermind.models;
  */
 public class Combination {
 
-    private Color[] colors;
+    private static final int WIDTH = 4;
+
+    protected List<Color> colors;
 
     /**
      * Constructor
      */
-    public Combination() {
-        colors = Color.values();
+    protected Combination() {
+        this.colors = new ArrayList<Color>();
+    }
+
+    /**
+     * Constructor
+     */
+    public Combination(List<Color> colors) {
+        this.colors = colors;
     }
 
     /**
@@ -35,7 +47,11 @@ public class Combination {
      * 
      * @return colors enum attribute
      */
-    public Color[] getColors() {
+    public List<Color> getColors() {
         return colors;
+    }
+
+    public static int getWidth() {
+        return Combination.WIDTH;
     }
 }

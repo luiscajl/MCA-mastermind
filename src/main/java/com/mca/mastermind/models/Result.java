@@ -21,6 +21,19 @@ public class Result {
     }
 
     /**
+     * Constrcutor with arguments
+     * 
+     * @param deaths
+     *            number of deaths
+     * @param damaged
+     *            number of damaged
+     */
+    public Result(int deaths, int damaged) {
+        this.deaths = deaths;
+        this.damaged = damaged;
+    }
+
+    /**
      * Method to get the deaths of the player
      * 
      * @return int deaths
