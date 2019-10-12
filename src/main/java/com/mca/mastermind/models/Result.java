@@ -1,60 +1,27 @@
 package com.mca.mastermind.models;
 
-/**
- * Class to control the result of the player
- * 
- * @author luisca
- *
- */
-public class Result {
+class Result {
 
-    private int deaths;
+    private int blacks = 0;
 
-    private int damaged;
+    private int whites = 0;
 
-    /**
-     * Constructor
-     */
-    public Result() {
-        deaths = 0;
-        damaged = 0;
+    Result(int blacks, int whites) {
+        assert blacks >= 0;
+        assert whites >= 0;
+        this.blacks = blacks;
+        this.whites = whites;
     }
 
-    /**
-     * Method to get the deaths of the player
-     * 
-     * @return int deaths
-     */
-    public int getDeaths() {
-        return deaths;
+    boolean isWinner() {
+        return this.blacks == Combination.getWidth();
     }
 
-    /**
-     * Method to get the damaged of the player
-     * 
-     * @return int damaged
-     */
-    public int getDamaged() {
-        return damaged;
+    int getBlacks() {
+        return this.blacks;
     }
 
-    /**
-     * Method to set the deaths
-     * 
-     * @param deaths
-     *            int to set on the attribute
-     */
-    public void setDeaths(int deaths) {
-        this.deaths = deaths;
-    }
-
-    /**
-     * Method to set the damaged
-     * 
-     * @param damaged
-     *            into set on the attribute
-     */
-    public void setDamaged(int damaged) {
-        this.damaged = damaged;
+    int getWhites() {
+        return this.whites;
     }
 }

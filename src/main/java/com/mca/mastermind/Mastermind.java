@@ -1,65 +1,29 @@
 package com.mca.mastermind;
 
-import java.util.Scanner;
-import com.mca.mastermind.models.ProposedPlayer;
-import com.mca.mastermind.models.Result;
-import com.mca.mastermind.models.SecretPlayer;
-import com.mca.mastermind.utils.MastermindConstants;
+import com.mca.mastermind.controllers.Controller;
+import com.mca.mastermind.controllers.Logic;
+import com.mca.mastermind.views.View;
 
-/**
- * Main Class
- * 
- * @author luisca
- *
- */
-public class Mastermind {
+public abstract class Mastermind {
 
-    private SecretPlayer secretPlayer;
+    private Logic logic;
 
-    private ProposedPlayer proposedPlayer;
+    private View view;
 
-    /**
-     * Main Method
-     * 
-     * @param args
-     *            command line arguments
-     */
-    public static void main(String[] args) {
-        Mastermind mastermind = new Mastermind();
-        Scanner input = new Scanner(System.in);
-        String option = null;
-        do {
-            mastermind.play();
-            System.out.println(MastermindConstants.WANNA_CONTINUE);
-            option = input.nextLine();
-        } while (!option.toLowerCase().equals("n"));
-        input.close();
+    protected Mastermind() {
+        this.logic = new Logic();
+        this.view = this.createView();
     }
 
-    /**
-     * Method to start the game
-     */
-    private void play() {
-        Result result = null;
-        secretPlayer = new SecretPlayer();
-        proposedPlayer = new ProposedPlayer();
-        System.out.println(MastermindConstants.MASTERMIND);
-        System.out.println(MastermindConstants.ASTERISK);
-        proposedPlayer.setEndGame(false);
-        secretPlayer.setProposedPlayer(proposedPlayer);
-        secretPlayer.prepare();
+    protected abstract View createView();
+
+    protected void play() {
+        Controller controller;
         do {
-            result = secretPlayer.answer(proposedPlayer.propose());
-            proposedPlayer.writeAttempts();
-            System.out.println(MastermindConstants.ASTERISK);
-            secretPlayer.write(proposedPlayer.getLastPropose(), result);
-        } while (result.getDeaths() != MastermindConstants.MAX_DEATHS
-                && !proposedPlayer.getEndGame());
-        if (result.getDeaths() == MastermindConstants.MAX_DEATHS) {
-            proposedPlayer.isWinner();
-        }
-        if (proposedPlayer.getEndGame()) {
-            proposedPlayer.isLooser();
-        }
+            controller = this.logic.getController();
+            if (controller != null) {
+                this.view.interact(controller);
+            }
+        } while (controller != null);
     }
 }
