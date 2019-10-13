@@ -2,22 +2,17 @@ package com.mca.mastermind.controllers;
 
 import com.mca.mastermind.models.Session;
 
-public class ResumeController extends GameController {
+public abstract class ResumeController extends GameController {
 
-    public ResumeController(Session session) {
-        super(session);
-    }
+	public ResumeController(Session session) {
+		super(session);
+	}
 
-    public void resume(boolean newGame) {
-        if (newGame) {
-            this.session.clearGame();
-        } else {
-            this.session.next();
-        }
-    }
+	public abstract void resume(boolean newGame);
 
-    @Override
-    public void accept(ControllersVisitor controllersVisitor) {
-        controllersVisitor.visit(this);
-    }
+	@Override
+	public void accept(ControllersVisitor controllersVisitor) {
+		controllersVisitor.visit(this);
+	}
+
 }

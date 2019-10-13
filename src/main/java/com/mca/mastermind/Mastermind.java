@@ -4,34 +4,26 @@ import com.mca.mastermind.controllers.GameController;
 import com.mca.mastermind.controllers.Logic;
 import com.mca.mastermind.views.View;
 
-public class Mastermind {
+public abstract class Mastermind {
 
     private Logic logic;
 
     private View view;
 
-    public static void main(String[] args) {
-        new Mastermind().play();
-    }
-
-    /**
-     * Private constructor
-     * 
-     * @param view
-     *            the selected view
-     */
     protected Mastermind() {
-        this.logic = new Logic();
+        this.logic = this.createLogic();
         this.view = new View();
     }
 
+    protected abstract Logic createLogic();
+
     protected void play() {
-        GameController gameController;
+        GameController acceptorController;
         do {
-            gameController = this.logic.getController();
-            if (gameController != null) {
-                this.view.interact(gameController);
+            acceptorController = this.logic.getController();
+            if (acceptorController != null) {
+                this.view.interact(acceptorController);
             }
-        } while (gameController != null);
+        } while (acceptorController != null);
     }
 }

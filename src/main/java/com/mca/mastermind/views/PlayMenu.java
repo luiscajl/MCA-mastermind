@@ -1,16 +1,14 @@
 package com.mca.mastermind.views;
 
-import com.mca.mastermind.commands.ProposeCommand;
-import com.mca.mastermind.commands.RedoCommand;
-import com.mca.mastermind.commands.UndoCommand;
 import com.mca.mastermind.controllers.PlayController;
-import com.mca.mastermind.models.Menu;
+import com.mca.mastermind.utils.Menu;
 
-class PlayMenu extends Menu {
+public class PlayMenu extends Menu {
 
-    PlayMenu(PlayController playController) {
-        this.addCommand(new ProposeCommand(playController));
-        this.addCommand(new UndoCommand(playController));
-        this.addCommand(new RedoCommand(playController));
-    }
+	public PlayMenu(PlayController playController) {
+		this.addCommand(new ProposeCommand(playController));
+		this.addCommand(new UndoCommand(playController));
+		this.addCommand(new RedoCommand(playController));
+	}
+
 }

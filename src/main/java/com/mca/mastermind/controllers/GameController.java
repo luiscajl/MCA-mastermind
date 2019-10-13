@@ -4,7 +4,7 @@ import com.mca.mastermind.models.Session;
 
 public abstract class GameController extends Controller {
 
-    GameController(Session session) {
+    public GameController(Session session) {
         super(session);
     }
 

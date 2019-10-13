@@ -1,18 +1,20 @@
 package com.mca.mastermind.controllers;
 
 import com.mca.mastermind.models.Session;
+import com.mca.mastermind.models.SessionImplementation;
 
 public class UndoController extends Controller {
 
-    UndoController(Session session) {
-        super(session);
-    }
+	public UndoController(Session session) {
+		super(session);
+	}
 
-    void undo() {
-        this.session.undo();
-    }
+	public void undo() {
+		((SessionImplementation) this.session).undo();
+	}
 
-    boolean undoable() {
-        return this.session.undoable();
-    }
+	public boolean undoable() {
+		return ((SessionImplementation) this.session).undoable();
+	}
+
 }

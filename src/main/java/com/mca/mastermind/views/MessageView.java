@@ -3,44 +3,46 @@ package com.mca.mastermind.views;
 import com.mca.mastermind.utils.Console;
 
 public enum MessageView {
+	ATTEMPTS("#attempts attempt(s): "),
+	SECRET("*"),
+	RESUME("Do you want to continue"),
+	RESULT(" --> #blacks blacks and #whites whites"),
+	PROPOSED_COMBINATION("Propose a combination: "),
+	TITLE("----- MASTERMIND -----"),
+	WINNER("You've won!!! ;-)"),
+	LOOSER("You've lost!!! :-("),
+	PROPOSE_COMMAND("Propose Combination"),
+	UNDO_COMMAND("Undo previous Proposal"),
+	REDO_COMMAND("Redo previous Proposal"), 
+	NEW_LINE("");
 
-    ATTEMPTS(" attempt(s):"),
-    SECRET("*"),
-    RESUME("Do you want to continue"),
-    RESULT(" --> #blacks blacks and #whites whites"),
-    PROPOSED_COMBINATION("Propose a combination: "),
-    TITLE("----- MASTERMIND -----"),
-    WINNER("You've won!!! ;-)"),
-    LOOSER("You've lost!!! :-("),
-    PROPOSE_COMMAND("Propose Combination"),
-    UNDO_COMMAND("Undo previous Proposal"),
-    REDO_COMMAND("Redo previous Proposal"),
-    CONTEXT_MENU("1. Console View\n2. Graphic view(NOT WORK)\n3. Exit"),
-    NEW_LINE("");
+	private String message;
+	
+	private Console console;
+	
+	private MessageView(String message) {
+		this.message = message;
+		this.console = new Console();
+	}
+	
+	public String getMessage() {
+		return this.message;
+	}
 
-    private String message;
+	public void writeln(int attempts) {
+		this.console.writeln(this.message.replaceAll("#attempts", ""+attempts));
+	}
 
-    private Console console;
+	public void writeln() {
+		this.console.writeln(this.message);
+	}
 
-    private MessageView(String message) {
-        this.message = message;
-        this.console = new Console();
-    }
+	public void writeln(int blacks, int whites) {
+		this.console.writeln(this.message.replaceAll("#blacks", ""+blacks).replaceAll("#whites", ""+whites));
+	}
 
-    public String getMessage() {
-        return this.message;
-    }
+	public void write() {
+		this.console.write(this.message);
+	}
 
-    public void writeln() {
-        this.console.writeln(getMessage());
-    }
-
-    public void writeln(int attemps) {
-        this.console.writeln(attemps + getMessage());
-    }
-
-    public void writeln(int blacks, int whites) {
-        this.console.writeln(getMessage().replaceAll("#blacks", "" + blacks)
-                .replaceAll("#whites", "" + whites));
-    }
 }

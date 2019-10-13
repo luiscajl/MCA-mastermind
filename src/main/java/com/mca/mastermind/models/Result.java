@@ -2,30 +2,31 @@ package com.mca.mastermind.models;
 
 class Result {
 
-    private int blacks = 0;
+	private int blacks = 0;
 
-    private int whites = 0;
+	private int whites = 0;
 
-    Result(int blacks, int whites) {
-        assert blacks >= 0;
-        assert whites >= 0;
-        this.blacks = blacks;
-        this.whites = whites;
-    }
+	Result(int blacks, int whites) {
+		assert blacks >= 0;
+		assert whites >= 0;
+		this.blacks = blacks;
+		this.whites = whites;
+	}
 
-    boolean isWinner() {
-        return this.blacks == Combination.getWidth();
-    }
+	boolean isWinner() {
+		return this.blacks == Combination.getWidth();
+	}
 
-    int getBlacks() {
-        return this.blacks;
-    }
+	int getBlacks() {
+		return this.blacks;
+	}
 
-    int getWhites() {
-        return this.whites;
-    }
+	int getWhites() {
+		return this.whites;
+	}
 
-    Result copy() {
-        return new Result(this.blacks, this.whites);
-    }
+	Result copy() {
+		return new Result(this.blacks, this.whites);
+	}
+
 }

@@ -7,23 +7,15 @@ import com.mca.mastermind.models.StateValue;
 
 public class Logic {
 
-    private Session session;
+    protected Session session;
 
-    private Map<StateValue, GameController> gameControllers;
+    protected Map<StateValue, GameController> gameControllers;
 
-    public Logic() {
-        this.session = new Session();
-        this.gameControllers = new HashMap<StateValue, GameController>();
-        this.gameControllers.put(StateValue.INITIAL,
-                new StartController(this.session));
-        this.gameControllers.put(StateValue.IN_GAME,
-                new PlayController(this.session));
-        this.gameControllers.put(StateValue.FINAL,
-                new ResumeController(this.session));
-        this.gameControllers.put(StateValue.EXIT, null);
+    protected Logic() {
+        gameControllers = new HashMap<StateValue, GameController>();
     }
 
     public GameController getController() {
-        return this.gameControllers.get(this.session.getValueState());
+        return gameControllers.get(this.session.getValueState());
     }
 }

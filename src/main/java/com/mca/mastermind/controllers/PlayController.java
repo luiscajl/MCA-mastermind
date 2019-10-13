@@ -1,71 +1,41 @@
 package com.mca.mastermind.controllers;
 
 import java.util.List;
-import com.mca.mastermind.models.Color;
-import com.mca.mastermind.models.MastermindError;
 import com.mca.mastermind.models.Session;
+import com.mca.mastermind.types.Color;
+import com.mca.mastermind.types.Error;
 
-public class PlayController extends GameController {
+public abstract class PlayController extends GameController {
 
-    private ProposalController proposalController;
+	protected PlayController(Session session) {
+		super(session);
+	}
 
-    private UndoController undoController;
+	public abstract Error addProposedCombination(List<Color> colors);
 
-    private RedoController redoController;
+	public abstract void undo();
 
-    PlayController(Session session) {
-        super(session);
-        this.proposalController = new ProposalController(this.session);
-        this.undoController = new UndoController(this.session);
-        this.redoController = new RedoController(this.session);
-    }
+	public abstract void redo();
 
-    public MastermindError addProposedCombination(List<Color> colors) {
-        return this.proposalController.addProposedCombination(colors);
-    }
+	public abstract boolean undoable();
 
-    public void undo() {
-        this.undoController.undo();
-    }
+	public abstract boolean redoable();
 
-    public void redo() {
-        this.redoController.redo();
-    }
+	public abstract boolean isWinner();
 
-    public boolean undoable() {
-        return this.undoController.undoable();
-    }
+	public abstract boolean isLooser();
 
-    public boolean redoable() {
-        return this.redoController.redoable();
-    }
+	public abstract List<Color> getColors(int position);
+	
+	public abstract int getBlacks(int position);
+	
+	public abstract int getWhites(int position);
 
-    public boolean isWinner() {
-        return this.proposalController.isWinner();
-    }
+	public abstract int getAttempts();
 
-    public boolean isLooser() {
-        return this.proposalController.isLooser();
-    }
+	@Override
+	public void accept(ControllersVisitor controllersVisitor) {
+		controllersVisitor.visit(this);
+	}
 
-    public int getAttempts() {
-        return this.proposalController.getAttempts();
-    }
-
-    public List<Color> getColors(int position) {
-        return this.proposalController.getColors(position);
-    }
-
-    public int getBlacks(int position) {
-        return this.proposalController.getBlacks(position);
-    }
-
-    public int getWhites(int position) {
-        return this.proposalController.getWhites(position);
-    }
-
-    @Override
-    public void accept(ControllersVisitor controllersVisitor) {
-        controllersVisitor.visit(this);
-    }
 }

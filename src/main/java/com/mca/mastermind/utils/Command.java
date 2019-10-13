@@ -2,24 +2,18 @@ package com.mca.mastermind.utils;
 
 public abstract class Command extends WithConsoleView {
 
-    protected String title;
+	protected String title;
+	
+	protected Command(String title) {
+		this.title = title;
+	}
 
-    protected int number;
+	protected abstract void execute();
 
-    protected Command(String title, int number) {
-        this.title = title;
-        this.number = number;
-    }
+	protected abstract boolean isActive();
 
-    public abstract void execute();
+	String getTitle() {
+		return this.title;
+	}
 
-    public abstract boolean isActive();
-
-    public String getTitle() {
-        return title;
-    }
-
-    public int getNumber() {
-        return number;
-    }
 }

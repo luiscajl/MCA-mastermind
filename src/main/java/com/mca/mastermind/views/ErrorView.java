@@ -1,22 +1,23 @@
 package com.mca.mastermind.views;
 
-import com.mca.mastermind.models.MastermindError;
+import com.mca.mastermind.types.Error;
 import com.mca.mastermind.utils.WithConsoleView;
 
-public class ErrorView extends WithConsoleView {
+class ErrorView extends WithConsoleView{
 
-    public static final String[] MESSAGES = {"Repeated colors",
-            "Wrong colors, they must be: " + ColorView.allInitials(),
-            "Wrong proposed combination length"};
+	static final String[] MESSAGES = { 
+		"Repeated colors",
+		"Wrong colors, they must be: " + ColorView.allInitials(), 
+		"Wrong proposed combination length" };
 
-    private MastermindError mastermindError;
+	Error error;
 
-    public ErrorView(MastermindError error) {
-        this.mastermindError = error;
-    }
-
-    public void writeln() {
-        this.console
-                .writeln(ErrorView.MESSAGES[this.mastermindError.ordinal()]);
-    }
+	ErrorView(Error error) {
+		this.error = error;
+	}
+	
+	void writeln() {
+		this.console.writeln(ErrorView.MESSAGES[this.error.ordinal()]);
+	}	
+	
 }
