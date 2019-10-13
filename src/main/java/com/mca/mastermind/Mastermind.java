@@ -1,6 +1,7 @@
 package com.mca.mastermind;
 
-import com.mca.mastermind.controllers.GameController;
+import java.io.IOException;
+import com.mca.mastermind.controllers.AcceptorController;
 import com.mca.mastermind.controllers.Logic;
 import com.mca.mastermind.views.View;
 
@@ -17,8 +18,8 @@ public abstract class Mastermind {
 
     protected abstract Logic createLogic();
 
-    protected void play() {
-        GameController acceptorController;
+    protected void play() throws IOException {
+        AcceptorController acceptorController;
         do {
             acceptorController = this.logic.getController();
             if (acceptorController != null) {

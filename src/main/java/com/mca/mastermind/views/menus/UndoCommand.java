@@ -1,8 +1,9 @@
-package com.mca.mastermind.views;
+package com.mca.mastermind.views.menus;
 
 import com.mca.mastermind.controllers.PlayController;
+import com.mca.mastermind.views.models.MessageView;
 
-class UndoCommand extends Command {
+public class UndoCommand extends Command {
 
 	UndoCommand(PlayController playController) {
 		super(MessageView.UNDO_COMMAND.getMessage(), playController);
@@ -10,13 +11,12 @@ class UndoCommand extends Command {
 
 	@Override
 	protected void execute() {
-		this.playController.undo();
-		new GameView(this.playController);
+		((PlayController) this.acceptorController).undo();
 	}
 
 	@Override
 	protected boolean isActive() {
-		return this.playController.undoable();
+		return ((PlayController) this.acceptorController).undoable();
 	}
 	
 }

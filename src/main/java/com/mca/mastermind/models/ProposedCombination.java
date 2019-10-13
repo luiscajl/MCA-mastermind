@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import com.mca.mastermind.types.Color;
 
-class ProposedCombination extends Combination {
+public class ProposedCombination extends Combination {
 
 	ProposedCombination(List<Color> colors) {
 		this.colors = colors;
+	}
+
+	public ProposedCombination() {
 	}
 
 	boolean contains(Color color, int position) {
@@ -29,6 +32,11 @@ class ProposedCombination extends Combination {
 			colors.add(color);
 		}
 		return new ProposedCombination(colors);
+	}
+
+	@Override
+	public String toString() {
+		return "ProposedCombination [colors=" + colors + "]";
 	}
 
 }

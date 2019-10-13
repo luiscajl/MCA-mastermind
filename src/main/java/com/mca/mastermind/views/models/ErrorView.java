@@ -1,9 +1,9 @@
-package com.mca.mastermind.views;
+package com.mca.mastermind.views.models;
 
 import com.mca.mastermind.types.Error;
 import com.mca.mastermind.utils.WithConsoleView;
 
-class ErrorView extends WithConsoleView{
+public class ErrorView extends WithConsoleView{
 
 	static final String[] MESSAGES = { 
 		"Repeated colors",
@@ -12,11 +12,11 @@ class ErrorView extends WithConsoleView{
 
 	Error error;
 
-	ErrorView(Error error) {
+	public ErrorView(Error error) {
 		this.error = error;
 	}
 	
-	void writeln() {
+	public void writeln() {
 		this.console.writeln(ErrorView.MESSAGES[this.error.ordinal()]);
 	}	
 	

@@ -1,6 +1,7 @@
-package com.mca.mastermind.views;
+package com.mca.mastermind.views.menus;
 
 import com.mca.mastermind.controllers.PlayController;
+import com.mca.mastermind.views.models.MessageView;
 
 class RedoCommand extends Command{
 	
@@ -10,13 +11,12 @@ class RedoCommand extends Command{
 
 	@Override
 	protected void execute() {
-		this.playController.redo();
-		new GameView(this.playController);
+		((PlayController) this.acceptorController).redo();
 	}
 
 	@Override
 	protected boolean isActive() {
-		return this.playController.redoable();
+		return ((PlayController) this.acceptorController).redoable();
 	}
 
 }

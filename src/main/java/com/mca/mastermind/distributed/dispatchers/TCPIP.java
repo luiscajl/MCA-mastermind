@@ -32,7 +32,6 @@ public class TCPIP extends com.mca.mastermind.utils.TCPIP {
 			return null;
 		}
 	}
-
 	
 	public TCPIP(Socket socket) {
 		super(socket);

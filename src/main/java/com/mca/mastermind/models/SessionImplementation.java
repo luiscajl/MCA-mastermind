@@ -4,21 +4,24 @@ import java.util.List;
 import com.mca.mastermind.types.Color;
 
 public class SessionImplementation implements Session {
-
+	
 	private State state;
-	
+
 	private Game game;
-	
+
 	private Registry registry;
-	
+
+	private String name;
+
 	public SessionImplementation() {
 		this.state = new State();
 		this.game = new Game();
 		this.registry = new Registry(this.game);
+		this.name = null;
 	}
 
 	public void next() {
-		this.state.next();		
+		this.state.next();
 	}
 
 	public void addProposedCombination(List<Color> colors) {
@@ -42,10 +45,27 @@ public class SessionImplementation implements Session {
 		this.registry.redo(this.game);
 	}
 
-	public void clearGame() {
+	public void isNewGame() {
 		this.game.clear();
-		this.state.reset();	
+		this.state.reset();
 		this.registry.reset();
+		this.name = null;
+	}
+
+	public void clearGame() {
+		this.game = new Game();		
+	}
+
+	public void registry() {
+		this.registry = new Registry(this.game);
+	}
+
+	public void resetRegistry() {
+		this.registry.reset();
+	}
+
+	public void setStateValue(StateValue stateValue) {
+		this.state.setStateValue(stateValue);
 	}
 
 	public boolean isWinner() {
@@ -56,20 +76,38 @@ public class SessionImplementation implements Session {
 		return this.game.isLooser();
 	}
 
+	public List<Color> getColors(int i) {
+		return this.game.getColors(i);
+	}
+
 	public int getAttempts() {
 		return this.game.getAttempts();
 	}
 
-	public List<Color> getColors(int position) {
-		return this.game.getColors(position);
+	public int getBlacks(int i) {
+		return this.game.getBlacks(i);
 	}
 
-	public int getBlacks(int position) {
-		return this.game.getBlacks(position);
+	public int getWhites(int i) {
+		return this.game.getWhites(i);
 	}
 
-	public int getWhites(int position) {
-		return this.game.getWhites(position);
+	public boolean hasName() {
+		return this.name != null;
+	}
+
+	public Game getGame() {
+		return this.game;
+	}
+
+	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String getName() {
+		return this.name;
 	}
 
 	@Override
@@ -81,4 +119,5 @@ public class SessionImplementation implements Session {
 	public StateValue getValueState() {
 		return this.state.getValueState();
 	}
+
 }

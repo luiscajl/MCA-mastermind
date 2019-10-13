@@ -2,9 +2,10 @@ package com.mca.mastermind.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.mca.mastermind.models.Combination;
 import com.mca.mastermind.types.Color;
 
-class Game {
+public class Game {
 
 	private static final int MAX_LONG = 10;
 
@@ -16,12 +17,12 @@ class Game {
 
 	private int attempts;
 
-	Game() {
+	public Game() {
+		this.secretCombination = new SecretCombination();
 		this.clear();
 	}
 
 	void clear() {
-		this.secretCombination = new SecretCombination();
 		this.proposedCombinations = new ArrayList<ProposedCombination>();
 		this.results = new ArrayList<Result>();
 		this.attempts = 0;
@@ -33,7 +34,7 @@ class Game {
 		this.results.add(this.secretCombination.getResult(proposedCombination));
 		this.attempts++;
 	}
-	
+
 	Memento createMemento() {
 		Memento memento = new Memento(this.attempts);
 		for (int i = 0; i < this.proposedCombinations.size(); i++) {
@@ -52,18 +53,34 @@ class Game {
 		}
 	}
 
+	public void setAttempts(int attempts) {
+		this.attempts = attempts;
+	}
+
+	public void addProposedCombination(ProposedCombination proposedCombination) {
+		this.proposedCombinations.add(proposedCombination);
+	}
+
+	public void addResult(Result result) {
+		this.results.add(result);
+	}
+
 	boolean isLooser() {
 		return this.attempts == Game.MAX_LONG;
 	}
-	
+
 	boolean isWinner() {
 		if (this.attempts == 0) {
 			return false;
 		}
-		return this.results.get(this.attempts-1).isWinner();
+		return this.results.get(this.attempts - 1).isWinner();
 	}
 
-	int getAttempts() {
+	int getWidth() {
+		return Combination.getWidth();
+	}
+
+	public int getAttempts() {
 		return this.attempts;
 	}
 
@@ -79,8 +96,22 @@ class Game {
 		return this.results.get(position).getWhites();
 	}
 
-	int getWidth() {
-		return Combination.getWidth();
+	public SecretCombination getSecretCombination() {
+		return this.secretCombination;
+	}
+
+	public ProposedCombination getProposedCombination(int position) {
+		return this.proposedCombinations.get(position);
+	}
+
+	public Result getResult(int position) {
+		return this.results.get(position);
+	}
+
+	@Override
+	public String toString() {
+		return "Game [secretCombination=" + secretCombination + ", proposedCombinations=" + proposedCombinations
+				+ ", results=" + results + ", attempts=" + attempts + "]";
 	}
 
 }

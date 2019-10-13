@@ -3,7 +3,7 @@ package com.mca.mastermind.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Memento {
+class Memento {
 
 	private List<ProposedCombination> proposedCombinations;
 

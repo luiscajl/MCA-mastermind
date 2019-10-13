@@ -1,19 +1,20 @@
 package com.mca.mastermind.utils;
 
+import java.io.IOException;
+
 public abstract class Command extends WithConsoleView {
 
-	protected String title;
-	
-	protected Command(String title) {
-		this.title = title;
-	}
+    protected String title;
 
-	protected abstract void execute();
+    protected Command(String title) {
+        this.title = title;
+    }
 
-	protected abstract boolean isActive();
+    protected abstract void execute() throws IOException;
 
-	String getTitle() {
-		return this.title;
-	}
+    protected abstract boolean isActive();
 
+    String getTitle() {
+        return this.title;
+    }
 }

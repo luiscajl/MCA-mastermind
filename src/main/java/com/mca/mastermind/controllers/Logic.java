@@ -7,15 +7,16 @@ import com.mca.mastermind.models.StateValue;
 
 public class Logic {
 
-    protected Session session;
+	protected Session session;
 
-    protected Map<StateValue, GameController> gameControllers;
+	protected Map<StateValue, AcceptorController> acceptorControllers;
 
-    protected Logic() {
-        gameControllers = new HashMap<StateValue, GameController>();
-    }
+	protected Logic() {
+		this.acceptorControllers = new HashMap<StateValue, AcceptorController>();
+	}
 
-    public GameController getController() {
-        return gameControllers.get(this.session.getValueState());
-    }
+	public AcceptorController getController() {
+		return this.acceptorControllers.get(this.session.getValueState());
+	}
+
 }

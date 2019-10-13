@@ -1,15 +1,15 @@
-package com.mca.mastermind.views;
+package com.mca.mastermind.views.models;
 
 import com.mca.mastermind.types.Color;
 import com.mca.mastermind.utils.WithConsoleView;
 
-class ColorView extends WithConsoleView{
+public class ColorView extends WithConsoleView{
 
 	static final char[] INITIALS = { 'r', 'b', 'y', 'g', 'o', 'p' };
 
 	protected Color color;
 
-	ColorView(Color color) {
+	public ColorView(Color color) {
 		this.color = color;
 	}
 
@@ -25,7 +25,7 @@ class ColorView extends WithConsoleView{
 		return ColorView.INITIALS[this.color.ordinal()];
 	}
 
-	static Color getInstance(char character) {
+	public static Color getInstance(char character) {
 		for (int i = 0; i < ColorView.INITIALS.length; i++) {
 			if (ColorView.INITIALS[i] == character) {
 				return Color.values()[i];
@@ -34,7 +34,7 @@ class ColorView extends WithConsoleView{
 		return null;
 	}
 
-	void write() {
+	public void write() {
 		this.console.write(ColorView.INITIALS[this.color.ordinal()]);
 	}
 

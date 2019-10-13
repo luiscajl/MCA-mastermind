@@ -1,9 +1,13 @@
-package com.mca.mastermind.views;
+package com.mca.mastermind.views.menus;
 
 import java.util.List;
 import com.mca.mastermind.controllers.PlayController;
 import com.mca.mastermind.types.Color;
 import com.mca.mastermind.types.Error;
+import com.mca.mastermind.views.models.ErrorView;
+import com.mca.mastermind.views.models.GameView;
+import com.mca.mastermind.views.models.MessageView;
+import com.mca.mastermind.views.models.ProposedCombinationView;
 
 class ProposeCommand extends Command {
 
@@ -15,13 +19,13 @@ class ProposeCommand extends Command {
 	protected void execute() {
 		Error error;
 		do {
-			List<Color> colors = new ProposedCombinationView(this.playController).read();
-			error = this.playController.addProposedCombination(colors);
+			List<Color> colors = new ProposedCombinationView((PlayController)this.acceptorController).read();
+			error = ((PlayController)this.acceptorController).addProposedCombination(colors);
 			if (error != null) {
 				new ErrorView(error).writeln();
 			}
 		} while (error != null);
-		new GameView(this.playController);
+		new GameView((PlayController)this.acceptorController);
 	}
 
 	@Override

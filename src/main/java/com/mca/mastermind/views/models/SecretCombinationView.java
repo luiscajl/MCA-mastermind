@@ -1,4 +1,4 @@
-package com.mca.mastermind.views;
+package com.mca.mastermind.views.models;
 
 import com.mca.mastermind.controllers.Controller;
 

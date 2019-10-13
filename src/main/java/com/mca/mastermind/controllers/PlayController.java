@@ -1,5 +1,6 @@
 package com.mca.mastermind.controllers;
 
+import java.io.IOException;
 import java.util.List;
 import com.mca.mastermind.models.Session;
 import com.mca.mastermind.types.Color;
@@ -7,35 +8,43 @@ import com.mca.mastermind.types.Error;
 
 public abstract class PlayController extends GameController {
 
-	protected PlayController(Session session) {
-		super(session);
-	}
+    protected PlayController(Session session) {
+        super(session);
+    }
 
-	public abstract Error addProposedCombination(List<Color> colors);
+    public abstract Error addProposedCombination(List<Color> colors);
 
-	public abstract void undo();
+    public abstract void undo();
 
-	public abstract void redo();
+    public abstract void redo();
 
-	public abstract boolean undoable();
+    public abstract void next();
 
-	public abstract boolean redoable();
+    public abstract boolean undoable();
 
-	public abstract boolean isWinner();
+    public abstract boolean redoable();
 
-	public abstract boolean isLooser();
+    @Override
+    public abstract boolean isWinner();
 
-	public abstract List<Color> getColors(int position);
-	
-	public abstract int getBlacks(int position);
-	
-	public abstract int getWhites(int position);
+    @Override
+    public abstract boolean isLooser();
 
-	public abstract int getAttempts();
+    @Override
+    public abstract List<Color> getColors(int position);
 
-	@Override
-	public void accept(ControllersVisitor controllersVisitor) {
-		controllersVisitor.visit(this);
-	}
+    @Override
+    public abstract int getBlacks(int position);
 
+    @Override
+    public abstract int getWhites(int position);
+
+    @Override
+    public abstract int getAttempts();
+
+    @Override
+    public void accept(ControllersVisitor controllersVisitor)
+            throws IOException {
+        controllersVisitor.visit(this);
+    }
 }

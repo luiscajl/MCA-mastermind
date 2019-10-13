@@ -1,6 +1,6 @@
 package com.mca.mastermind.models;
 
-class Result {
+public class Result {
 
 	private int blacks = 0;
 
@@ -13,20 +13,36 @@ class Result {
 		this.whites = whites;
 	}
 
-	boolean isWinner() {
-		return this.blacks == Combination.getWidth();
-	}
-
-	int getBlacks() {
-		return this.blacks;
-	}
-
-	int getWhites() {
-		return this.whites;
+	public Result() {
 	}
 
 	Result copy() {
 		return new Result(this.blacks, this.whites);
+	}
+
+	public void setBlacks(int blacks) {
+		this.blacks = blacks;
+	}
+	
+	public void setWhites(int whites) {
+		this.whites = whites;
+	}
+
+	boolean isWinner() {
+		return this.blacks == Combination.getWidth();
+	}
+
+	public int getBlacks() {
+		return this.blacks;
+	}
+
+	public int getWhites() {
+		return this.whites;
+	}
+
+	@Override
+	public String toString() {
+		return "Result [blacks=" + blacks + ", whites=" + whites + "]";
 	}
 
 }
