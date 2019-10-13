@@ -2,7 +2,6 @@ package com.mca.mastermind.models;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.mca.mastermind.types.Color;
 
 public abstract class Combination {
 

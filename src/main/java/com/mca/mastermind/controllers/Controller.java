@@ -1,22 +1,16 @@
 package com.mca.mastermind.controllers;
 
-import com.mca.mastermind.models.Game;
-import com.mca.mastermind.models.State;
+import com.mca.mastermind.models.Session;
 
 public abstract class Controller {
 
-    protected Game game;
+    protected Session session;
 
-    protected State state;
-
-    Controller(Game game, State state) {
-        this.game = game;
-        this.state = state;
+    Controller(Session session) {
+        this.session = session;
     }
 
     public int getWidth() {
-        return this.game.getWidth();
+        return this.session.getWidth();
     }
-
-    public abstract void accept(ControllersVisitor controllersVisitor);
 }

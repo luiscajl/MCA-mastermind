@@ -1,18 +1,19 @@
 package com.mca.mastermind.views;
 
-import com.mca.mastermind.types.Color;
+import com.mca.mastermind.models.Color;
+import com.mca.mastermind.utils.WithConsoleView;
 
-public class ColorView {
+public class ColorView extends WithConsoleView {
 
     public static final char[] INITIALS = {'r', 'b', 'y', 'g', 'o', 'p'};
 
-    protected Color color;
+    public Color color;
 
     public ColorView(Color color) {
         this.color = color;
     }
 
-    static String allInitials() {
+    public static String allInitials() {
         String result = "";
         for (char character : ColorView.INITIALS) {
             result += character;
@@ -31,5 +32,9 @@ public class ColorView {
             }
         }
         return null;
+    }
+
+    public void write() {
+        this.console.write(ColorView.INITIALS[this.color.ordinal()]);
     }
 }

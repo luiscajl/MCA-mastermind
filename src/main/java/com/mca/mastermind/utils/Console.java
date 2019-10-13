@@ -1,4 +1,4 @@
-package com.mca.santaTecla.utils;
+package com.mca.mastermind.utils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -14,7 +14,7 @@ public class Console {
         do {
             this.write(title);
             try {
-                input = this.bufferedReader.readLine();
+                input = bufferedReader.readLine();
                 ok = true;
             } catch (Exception ex) {
                 this.writeError("characte string");
@@ -23,17 +23,13 @@ public class Console {
         return input;
     }
 
-    public int readInt(String title) {
+    public int readInt() {
         int input = 0;
-        boolean ok = false;
-        do {
-            try {
-                input = Integer.parseInt(this.readString(title));
-                ok = true;
-            } catch (Exception ex) {
-                this.writeError("integer");
-            }
-        } while (!ok);
+        try {
+            input = Integer.parseInt(bufferedReader.readLine());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return input;
     }
 

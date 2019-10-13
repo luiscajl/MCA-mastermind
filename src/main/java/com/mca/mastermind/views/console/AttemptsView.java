@@ -1,19 +1,17 @@
 package com.mca.mastermind.views.console;
 
-import com.mca.mastermind.controllers.ProposalController;
+import com.mca.mastermind.controllers.PlayController;
 import com.mca.mastermind.views.MessageView;
-import com.mca.santaTecla.utils.WithConsoleView;
 
-public class AttemptsView extends WithConsoleView {
+public class AttemptsView {
 
-    private ProposalController proposalController;
+    private PlayController playController;
 
-    AttemptsView(ProposalController proposalController) {
-        this.proposalController = proposalController;
+    public AttemptsView(PlayController playController) {
+        this.playController = playController;
     }
 
-    void writeln() {
-        this.console.writeln(MessageView.ATTEMPTS.getMessage().replaceFirst(
-                "#attempts", "" + this.proposalController.getAttempts()));
+    public void writeln() {
+        MessageView.ATTEMPTS.writeln(this.playController.getAttempts());
     }
 }

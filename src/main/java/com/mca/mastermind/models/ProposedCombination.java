@@ -1,7 +1,7 @@
 package com.mca.mastermind.models;
 
+import java.util.ArrayList;
 import java.util.List;
-import com.mca.mastermind.types.Color;
 
 class ProposedCombination extends Combination {
 
@@ -20,5 +20,13 @@ class ProposedCombination extends Combination {
             }
         }
         return false;
+    }
+
+    public ProposedCombination copyCombination() {
+        List<Color> colors = new ArrayList<Color>();
+        for (Color color : this.colors) {
+            colors.add(color);
+        }
+        return new ProposedCombination(colors);
     }
 }

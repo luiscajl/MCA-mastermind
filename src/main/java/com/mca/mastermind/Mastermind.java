@@ -1,29 +1,37 @@
 package com.mca.mastermind;
 
-import com.mca.mastermind.controllers.Controller;
+import com.mca.mastermind.controllers.GameController;
 import com.mca.mastermind.controllers.Logic;
 import com.mca.mastermind.views.View;
 
-public abstract class Mastermind {
+public class Mastermind {
 
     private Logic logic;
 
     private View view;
 
-    protected Mastermind() {
-        this.logic = new Logic();
-        this.view = this.createView();
+    public static void main(String[] args) {
+        new Mastermind().play();
     }
 
-    protected abstract View createView();
+    /**
+     * Private constructor
+     * 
+     * @param view
+     *            the selected view
+     */
+    protected Mastermind() {
+        this.logic = new Logic();
+        this.view = new View();
+    }
 
     protected void play() {
-        Controller controller;
+        GameController gameController;
         do {
-            controller = this.logic.getController();
-            if (controller != null) {
-                this.view.interact(controller);
+            gameController = this.logic.getController();
+            if (gameController != null) {
+                this.view.interact(gameController);
             }
-        } while (controller != null);
+        } while (gameController != null);
     }
 }

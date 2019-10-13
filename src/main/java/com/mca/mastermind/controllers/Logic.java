@@ -2,32 +2,28 @@ package com.mca.mastermind.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
-import com.mca.mastermind.models.Game;
-import com.mca.mastermind.models.State;
+import com.mca.mastermind.models.Session;
 import com.mca.mastermind.models.StateValue;
 
 public class Logic {
 
-    private State state;
+    private Session session;
 
-    private Game game;
-
-    private Map<StateValue, Controller> controllers;
+    private Map<StateValue, GameController> gameControllers;
 
     public Logic() {
-        this.state = new State();
-        this.game = new Game();
-        this.controllers = new HashMap<StateValue, Controller>();
-        this.controllers.put(StateValue.INITIAL,
-                new StartController(this.game, this.state));
-        this.controllers.put(StateValue.IN_GAME,
-                new ProposalController(this.game, this.state));
-        this.controllers.put(StateValue.FINAL,
-                new ResumeController(this.game, this.state));
-        this.controllers.put(StateValue.EXIT, null);
+        this.session = new Session();
+        this.gameControllers = new HashMap<StateValue, GameController>();
+        this.gameControllers.put(StateValue.INITIAL,
+                new StartController(this.session));
+        this.gameControllers.put(StateValue.IN_GAME,
+                new PlayController(this.session));
+        this.gameControllers.put(StateValue.FINAL,
+                new ResumeController(this.session));
+        this.gameControllers.put(StateValue.EXIT, null);
     }
 
-    public Controller getController() {
-        return this.controllers.get(this.state.getValueState());
+    public GameController getController() {
+        return this.gameControllers.get(this.session.getValueState());
     }
 }

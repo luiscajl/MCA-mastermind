@@ -1,8 +1,7 @@
-package com.mca.mastermind.views.console;
+package com.mca.mastermind.views;
 
 import com.mca.mastermind.controllers.ResumeController;
-import com.mca.mastermind.views.MessageView;
-import com.mca.santaTecla.utils.YesNoDialog;
+import com.mca.mastermind.utils.YesNoDialog;
 
 class ResumeView {
 

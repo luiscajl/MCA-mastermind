@@ -2,7 +2,6 @@ package com.mca.mastermind.models;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.mca.mastermind.types.Color;
 
 public class Game {
 
@@ -16,18 +15,18 @@ public class Game {
 
     private int attempts;
 
-    public Game() {
+    Game() {
         this.clear();
     }
 
-    public void clear() {
+    void clear() {
         this.secretCombination = new SecretCombination();
         this.proposedCombinations = new ArrayList<ProposedCombination>();
         this.results = new ArrayList<Result>();
         this.attempts = 0;
     }
 
-    public void addProposedCombination(List<Color> colors) {
+    void addProposedCombination(List<Color> colors) {
         ProposedCombination proposedCombination = new ProposedCombination(
                 colors);
         this.proposedCombinations.add(proposedCombination);
@@ -35,31 +34,54 @@ public class Game {
         this.attempts++;
     }
 
-    public boolean isLooser() {
+    Database createMemento() {
+        Database memento = new Database(this.attempts);
+        for (int i = 0; i < this.proposedCombinations.size(); i++) {
+            memento.set(this.proposedCombinations.get(i).copyCombination(),
+                    this.results.get(i).copy());
+        }
+        return memento;
+    }
+
+    void set(Database memento) {
+        this.attempts = memento.getAttempts();
+        this.proposedCombinations = new ArrayList<ProposedCombination>();
+        this.results = new ArrayList<Result>();
+        for (int i = 0; i < memento.getSize(); i++) {
+            this.proposedCombinations
+                    .add(memento.getProposedCombination(i).copyCombination());
+            this.results.add(memento.getResult(i).copy());
+        }
+    }
+
+    boolean isLooser() {
         return this.attempts == Game.MAX_LONG;
     }
 
-    public boolean isWinner() {
+    boolean isWinner() {
+        if (this.attempts == 0) {
+            return false;
+        }
         return this.results.get(this.attempts - 1).isWinner();
     }
 
-    public int getAttempts() {
+    int getAttempts() {
         return this.attempts;
     }
 
-    public List<Color> getColors(int position) {
+    List<Color> getColors(int position) {
         return this.proposedCombinations.get(position).colors;
     }
 
-    public int getBlacks(int position) {
+    int getBlacks(int position) {
         return this.results.get(position).getBlacks();
     }
 
-    public int getWhites(int position) {
+    int getWhites(int position) {
         return this.results.get(position).getWhites();
     }
 
-    public int getWidth() {
+    int getWidth() {
         return Combination.getWidth();
     }
 }

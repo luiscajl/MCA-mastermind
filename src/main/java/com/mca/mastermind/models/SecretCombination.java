@@ -2,7 +2,6 @@ package com.mca.mastermind.models;
 
 import java.util.Collections;
 import java.util.Random;
-import com.mca.mastermind.types.Color;
 
 class SecretCombination extends Combination {
 

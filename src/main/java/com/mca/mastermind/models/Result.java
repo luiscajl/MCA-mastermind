@@ -24,4 +24,8 @@ class Result {
     int getWhites() {
         return this.whites;
     }
+
+    Result copy() {
+        return new Result(this.blacks, this.whites);
+    }
 }

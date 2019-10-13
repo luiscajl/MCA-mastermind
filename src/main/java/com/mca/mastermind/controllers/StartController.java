@@ -1,16 +1,15 @@
 package com.mca.mastermind.controllers;
 
-import com.mca.mastermind.models.Game;
-import com.mca.mastermind.models.State;
+import com.mca.mastermind.models.Session;
 
-public class StartController extends Controller {
+public class StartController extends GameController {
 
-    public StartController(Game game, State state) {
-        super(game, state);
+    public StartController(Session session) {
+        super(session);
     }
 
     public void start() {
-        this.state.next();
+        this.session.next();
     }
 
     @Override

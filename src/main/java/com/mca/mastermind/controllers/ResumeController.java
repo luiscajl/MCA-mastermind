@@ -1,20 +1,18 @@
 package com.mca.mastermind.controllers;
 
-import com.mca.mastermind.models.Game;
-import com.mca.mastermind.models.State;
+import com.mca.mastermind.models.Session;
 
-public class ResumeController extends Controller {
+public class ResumeController extends GameController {
 
-    public ResumeController(Game game, State state) {
-        super(game, state);
+    public ResumeController(Session session) {
+        super(session);
     }
 
     public void resume(boolean newGame) {
         if (newGame) {
-            this.game.clear();
-            this.state.reset();
+            this.session.clearGame();
         } else {
-            this.state.next();
+            this.session.next();
         }
     }
 

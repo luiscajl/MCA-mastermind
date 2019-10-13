@@ -1,4 +1,4 @@
-package com.mca.santaTecla.utils;
+package com.mca.mastermind.utils;
 
 public abstract class WithConsoleView {
 

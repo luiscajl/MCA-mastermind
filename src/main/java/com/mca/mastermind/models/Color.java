@@ -1,4 +1,4 @@
-package com.mca.mastermind.types;
+package com.mca.mastermind.models;
 
 public enum Color {
 
