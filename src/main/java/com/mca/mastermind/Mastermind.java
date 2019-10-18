@@ -1,30 +1,41 @@
 package com.mca.mastermind;
 
-import java.io.IOException;
-import com.mca.mastermind.controllers.AcceptorController;
-import com.mca.mastermind.controllers.Logic;
+import com.mca.mastermind.controllers.ProposalController;
+import com.mca.mastermind.controllers.ResumeController;
+import com.mca.mastermind.controllers.StartController;
+import com.mca.mastermind.models.Session;
 import com.mca.mastermind.views.View;
 
 public abstract class Mastermind {
 
-    private Logic logic;
+    private Session session;
+
+    private StartController startController;
+
+    private ProposalController proposalController;
+
+    private ResumeController resumeController;
 
     private View view;
 
     protected Mastermind() {
-        this.logic = this.createLogic();
-        this.view = new View();
+        this.session = new Session();
+        this.startController = new StartController(this.game);
+        this.proposalController = new ProposalController(this.game);
+        this.resumeController = new ResumeController(this.game);
+        this.view = this.createView(this.startController,
+                this.proposalController, this.resumeController);
     }
 
-    protected abstract Logic createLogic();
+    protected abstract View createView(StartController startController,
+            ProposalController proposalController,
+            ResumeController resumeController);
 
-    protected void play() throws IOException {
-        AcceptorController acceptorController;
-        do {
-            acceptorController = this.logic.getController();
-            if (acceptorController != null) {
-                this.view.interact(acceptorController);
-            }
-        } while (acceptorController != null);
+    /**
+     * El metodo play tiene que hacer uso de
+     * controllers.getSession.getValue().control()
+     */
+    protected void play() {
+        this.view.interact();
     }
 }

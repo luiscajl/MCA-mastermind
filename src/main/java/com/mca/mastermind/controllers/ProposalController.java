@@ -2,15 +2,14 @@ package com.mca.mastermind.controllers;
 
 import java.util.List;
 import com.mca.mastermind.models.Combination;
-import com.mca.mastermind.models.Session;
-import com.mca.mastermind.models.SessionImplementation;
+import com.mca.mastermind.models.Game;
 import com.mca.mastermind.types.Color;
 import com.mca.mastermind.types.Error;
 
 public class ProposalController extends Controller {
 
-	public ProposalController(Session session) {
-		super(session);
+	public ProposalController(Game game) {
+		super(game);
 	}
 
 	public Error addProposedCombination(List<Color> colors) {
@@ -22,46 +21,42 @@ public class ProposalController extends Controller {
 				if (colors.get(i) == null) {
 					error = Error.WRONG_CHARACTERS;
 				} else {
-					for (int j = i + 1; j < colors.size(); j++) {
+					for (int j = i+1; j < colors.size(); j++) {
 						if (colors.get(i) == colors.get(j)) {
 							error = Error.DUPLICATED;
 						}
 					}
-				}
+				}				
 			}
 		}
-		if (error == null) {
-			((SessionImplementation) this.session).addProposedCombination(colors);
-			if (((SessionImplementation) this.session).isWinner()
-					|| ((SessionImplementation) this.session).isLooser()) {
-				((SessionImplementation) this.session).next();
-			}
+		if (error == null){
+			this.game.addProposedCombination(colors);
 		}
-		return error;
+		return error;	
 	}
 
 	public boolean isWinner() {
-		return ((SessionImplementation) this.session).isWinner();
+		return this.game.isWinner();
 	}
 
 	public boolean isLooser() {
-		return ((SessionImplementation) this.session).isLooser();
+		return this.game.isLooser();
 	}
-
+	
 	public int getAttempts() {
-		return ((SessionImplementation) this.session).getAttempts();
+		return this.game.getAttempts();
 	}
 
 	public List<Color> getColors(int position) {
-		return ((SessionImplementation) this.session).getColors(position);
+		return this.game.getColors(position);
 	}
 
 	public int getBlacks(int position) {
-		return ((SessionImplementation) this.session).getBlacks(position);
+		return this.game.getBlacks(position);
 	}
 
 	public int getWhites(int position) {
-		return ((SessionImplementation) this.session).getWhites(position);
+		return this.game.getWhites(position);
 	}
 
 }

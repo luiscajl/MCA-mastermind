@@ -1,52 +1,39 @@
 package com.mca.mastermind.views;
 
-import java.io.IOException;
-import com.mca.mastermind.controllers.AcceptorController;
-import com.mca.mastermind.controllers.ControllersVisitor;
-import com.mca.mastermind.controllers.PlayController;
+import com.mca.mastermind.controllers.ProposalController;
 import com.mca.mastermind.controllers.ResumeController;
-import com.mca.mastermind.controllers.SaveController;
 import com.mca.mastermind.controllers.StartController;
 
-public class View implements ControllersVisitor {
+public abstract class View {
+	
+	protected StartController startController;
 
-    private StartView startView;
+	protected ProposalController proposalController;
 
-    private PlayView playView;
+	protected ResumeController resumeController;
 
-    private SaveView saveView;
+	public View(StartController startController, ProposalController proposalController, ResumeController resumeController) {
+		this.startController = startController;
+		this.proposalController = proposalController;
+		this.resumeController = resumeController;
+	}
 
-    private ResumeView resumeView;
+	public void interact() {
+		boolean newGame;
+		do {
+			this.start();
+			boolean finished;
+			do {
+				finished = this.propose();
+			} while (!finished);
+			newGame = this.isNewGame();
+		} while (newGame);
+	}
 
-    public View() {
-        this.startView = new StartView();
-        this.playView = new PlayView();
-        this.saveView = new SaveView();
-        this.resumeView = new ResumeView();
-    }
+	protected abstract void start();
 
-    public void interact(AcceptorController acceptorController)
-            throws IOException {
-        acceptorController.accept(this);
-    }
+	protected abstract boolean propose();
 
-    @Override
-    public void visit(StartController startController) throws IOException {
-        this.startView.interact(startController);
-    }
+	protected abstract boolean isNewGame();
 
-    @Override
-    public void visit(PlayController playController) throws IOException {
-        this.playView.interact(playController);
-    }
-
-    @Override
-    public void visit(SaveController saveController) throws IOException {
-        this.saveView.interact(saveController);
-    }
-
-    @Override
-    public void visit(ResumeController resumeController) {
-        this.resumeView.interact(resumeController);
-    }
 }

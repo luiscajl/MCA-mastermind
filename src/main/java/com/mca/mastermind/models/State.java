@@ -2,26 +2,21 @@ package com.mca.mastermind.models;
 
 public class State {
 
-	private StateValue stateValue;
+    private StateValue stateValue;
 
-	public State() {
-		this.reset();
-	}
+    State() {
+        this.stateValue = StateValue.INITIAL;
+    }
 
-	public void next() {
-		this.stateValue = StateValue.values()[this.stateValue.ordinal() + 1];
-	}
+    void next() {
+        this.stateValue = StateValue.values()[this.stateValue.ordinal() + 1];
+    }
 
-	public void reset() {
-		this.stateValue = StateValue.INITIAL;
-	}
+    void reset() {
+        this.stateValue = StateValue.INITIAL;
+    }
 
-	public void setStateValue(StateValue stateValue) {
-		this.stateValue = stateValue;
-	}
-
-	public StateValue getValueState() {
-		return this.stateValue;
-	}
-
+    StateValue getValueState() {
+        return this.stateValue;
+    }
 }
