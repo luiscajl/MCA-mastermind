@@ -1,6 +1,5 @@
 package com.mca.mastermind.models;
 
-import java.rmi.registry.Registry;
 import java.util.List;
 import com.mca.mastermind.types.Color;
 
@@ -10,12 +9,9 @@ public class Session {
 
     private Game game;
 
-    private Registry registry;
-
     public Session() {
         this.state = new State();
         this.game = new Game();
-        this.registry = new Registry(this.game);
     }
 
     public void next() {
@@ -24,29 +20,11 @@ public class Session {
 
     public void addProposedCombination(List<Color> colors) {
         this.game.addProposedCombination(colors);
-        this.registry.registry();
-    }
-
-    public boolean undoable() {
-        return this.registry.undoable();
-    }
-
-    public boolean redoable() {
-        return this.registry.redoable();
-    }
-
-    public void undo() {
-        this.registry.undo(this.game);
-    }
-
-    public void redo() {
-        this.registry.redo(this.game);
     }
 
     public void clearGame() {
         this.game.clear();
         this.state.reset();
-        this.registry.reset();
     }
 
     public boolean isWinner() {
@@ -55,10 +33,6 @@ public class Session {
 
     public boolean isLooser() {
         return this.game.isLooser();
-    }
-
-    public int getWidth() {
-        return this.game.getWidth();
     }
 
     public List<Color> getColors(int position) {
@@ -75,6 +49,10 @@ public class Session {
 
     public int getAttempts() {
         return this.game.getAttempts();
+    }
+
+    public int getWidth() {
+        return this.game.getWidth();
     }
 
     public StateValue getValueState() {

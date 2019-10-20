@@ -1,18 +1,18 @@
 package com.mca.mastermind.controllers;
 
-import com.mca.mastermind.models.Combination;
-import com.mca.mastermind.models.Game;
+import com.mca.mastermind.models.Session;
 
 public abstract class Controller {
 
-	protected Game game;
+    protected Session session;
 
-	Controller(Game game) {
-		this.game = game;
-	}
+    public Controller(Session session) {
+        this.session = session;
+    }
 
-	public int getWidth() {
-		return Combination.getWidth();
-	}
+    public int getWidth() {
+        return session.getWidth();
+    }
 
+    public abstract void control();
 }
